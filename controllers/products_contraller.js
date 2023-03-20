@@ -1,14 +1,14 @@
 const db = require('../index').db;
 
-async function allProducts(req,res){
+async function allProducts( req,res ) {
     db.all("SELECT * FROM products", [], (err, data) => {
         res.send(data);
       });
 }
 
-async function createProduct(req,res){
+async function createProduct(req, res){
     
-    db.run('INSERT INTO products(image,name,price, description, quantity) VALUES(?,?,?,?)', 
+    await db.run('INSERT INTO products(image, name, price, description) VALUES(?,?,?,?)', 
     [
         req.body.image,
         req.body.name,
@@ -33,6 +33,7 @@ async function updateProduct(req,res){
         req.body.name,
         req.body.price,
         req.body.description,
+        req.body.quantity,
         req.params.id
     ],
     (err)=>{
